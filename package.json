@@ -1,6 +1,6 @@
 {
   "name": "grunt-string-to-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Convert text to JavaScript via Grunt task",
   "main": "Gruntfile.js",
   "repository": {
@@ -16,5 +16,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zgohr/grunt-string-to-js/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
   }
 }

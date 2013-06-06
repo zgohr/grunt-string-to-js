@@ -24,7 +24,7 @@ module.exports = function(grunt) {
           return false;
         }
         str += options.namespace + '["' + f + '"] = ';
-        str += '"' + str2js(grunt.file.read(f), '') + '";\n';
+        str += "'" + str2js(grunt.file.read(f), '') + "';\n";
       });
       grunt.file.write(fname, str);
     }
