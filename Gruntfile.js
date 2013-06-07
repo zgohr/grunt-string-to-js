@@ -4,10 +4,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     str2js: {
-      options: {
-        namespace: 'NS'
-      },
-      build: { 'test/build.js': ['test/html.html']}
+      NS: { 'test/build.js': ['test/html.html']}
     }
   });
 

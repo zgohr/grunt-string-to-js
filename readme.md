@@ -2,22 +2,30 @@
 
 ### Build any text into JavaScript
 
-```
-npm install grunt-string-to-js --save
-```
+```npm install grunt-string-to-js --save``
+
+Grunt configuration
 
 ```
 str2js: {
-  options: {
-    namespace: 'NS'
-  },
-  build: { 'test/build.js': ['test/html.html']}
+  NS: { 'test/build.js': ['test/html.html']}
 }
 ```
 
-### Options
+Turns ```test/test.html```
 
-```namespace``` is the dictionary that JavaScript is compiled to. For instance, the above configuration will generate a single file, ```test/build.js``` with a variable ```NS["test/html.html"]``` that holds the HTML found in the file.
+```
+<div class="foo">
+    <p class="bar">baz</p>
+</div>
+```
+
+into ```test/build.js```
+
+```
+var NS = NS || {};
+NS["test/html.html"] = '<div class="foo">\n    <p class="bar">baz</p>\n</div>\n';
+```
 
 ### Credits
 

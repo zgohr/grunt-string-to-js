@@ -9,11 +9,8 @@ var str2js = function(str) {
 
 module.exports = function(grunt) {
   grunt.registerMultiTask('str2js', 'Convert text to JavaScript.', function() {
-    var options = this.options({
-      namespace: 'NS'
-    });
-
-    var str = 'var ' + options.namespace + ' = {};\n';
+    var namespace = this.target;
+    var str = 'var ' + namespace + ' = ' + namespace + ' || {};\n';
 
     // Loop over destination files
     for (var fname in this.data) {
@@ -23,7 +20,7 @@ module.exports = function(grunt) {
           grunt.log.warn('Source file "' + f + '" not found.');
           return false;
         }
-        str += options.namespace + '["' + f + '"] = ';
+        str += namespace + '["' + f + '"] = ';
         str += "'" + str2js(grunt.file.read(f), '') + "';\n";
       });
       grunt.file.write(fname, str);
