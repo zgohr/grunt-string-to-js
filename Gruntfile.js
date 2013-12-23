@@ -1,15 +1,19 @@
 'use strict';
 
-module.exports = function(grunt) {
-  // Project configuration.
-  grunt.initConfig({
-    str2js: {
-      NS: { 'test/build.js': ['test/html.html']}
-    }
-  });
+module.exports = function (grunt) {
+    // Project configuration.
+    grunt.initConfig({
+        str2js: {
+            NS: {
+                files: {
+                    'test/build.js': ['test/html.html']
+                }
+            }
+        }
+    });
 
-  grunt.loadTasks('tasks');
+    grunt.loadTasks('tasks');
 
-  grunt.registerTask('default', ['str2js']);
-  
+    grunt.registerTask('default', ['str2js']);
+
 };

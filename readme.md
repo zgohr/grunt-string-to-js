@@ -6,10 +6,17 @@
 
 Grunt configuration
 
+Specifying files can be achieved [in various ways](http://gruntjs.com/configuring-tasks).
+This includes specifying a current working directory (i.e. `cwd` property) which may be helpful if you wish to exclude paths.
+
 ```
 str2js: {
-  NS: { 'test/build.js': ['test/html.html']}
-}
+    NS: {
+        files: {
+            'test/build.js': ['test/html.html']
+        }
+    }
+    }
 ```
 
 Turns ```test/test.html```
