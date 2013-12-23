@@ -28,7 +28,6 @@ module.exports = function (grunt) {
                     str += "'" + str2js(grunt.file.read(resolvedpath)) + "';\n";
                 }
             });
-            grunt.file.setBase('.');
             grunt.file.write(file.dest, str);
         });
     });
