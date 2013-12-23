@@ -2,29 +2,34 @@
  * Grunt String to JS
  * Copyright (c) 2013 Zach Gohr
  */
+var path = require('path');
 
-var str2js = function(str) {
-  return str.replace(/'/g, "\\'").replace(/\r\n|\r|\n/g, "\\n");
+var str2js = function (str) {
+    return str.replace(/'/g, "\\'").replace(/\r\n|\r|\n/g, "\\n");
 };
 
-module.exports = function(grunt) {
-  grunt.registerMultiTask('str2js', 'Convert text to JavaScript.', function() {
-    var namespace = this.target;
-    var str = 'var ' + namespace + ' = ' + namespace + ' || {};\n';
+module.exports = function (grunt) {
+    grunt.registerMultiTask('str2js', 'Convert text to JavaScript.', function () {
+        var namespace = this.target;
 
-    // Loop over destination files
-    for (var fname in this.data) {
-      // Loop over source files
-      this.data[fname].forEach(function(f) {
-        if (!grunt.file.exists(f)) {
-          grunt.log.warn('Source file "' + f + '" not found.');
-          return false;
-        }
-        str += namespace + '["' + f + '"] = ';
-        str += "'" + str2js(grunt.file.read(f), '') + "';\n";
-      });
-      grunt.file.write(fname, str);
-    }
-    
-  });
+        this.files.forEach(function (file) {
+            var str = 'var ' + namespace + ' = ' + namespace + ' || {};\n';
+            file.src.forEach(function (filepath) {
+                var resolvedpath;
+                if (file.cwd) {
+                    resolvedpath = path.join(file.cwd, filepath);
+                } else {
+                    resolvedpath = filepath;
+                }
+                if (!grunt.file.exists(resolvedpath)) {
+                    grunt.log.warn('Source file "' + resolvedpath + '" not found.');
+                } else {
+                    str += namespace + '["' + filepath + '"] = ';
+                    str += "'" + str2js(grunt.file.read(resolvedpath)) + "';\n";
+                }
+            });
+            grunt.file.setBase('.');
+            grunt.file.write(file.dest, str);
+        });
+    });
 };
