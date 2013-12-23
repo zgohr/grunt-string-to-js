@@ -10,10 +10,28 @@ var str2js = function (str) {
 
 module.exports = function (grunt) {
     grunt.registerMultiTask('str2js', 'Convert text to JavaScript.', function () {
-        var namespace = this.target;
+
+        var options = this.options({
+            initialize: true,
+            namespace: [this.target]
+        });
+
+        if (options.namespace.length < 1) {
+            grunt.fail.fatal('"namespace" option must be an array which contains at least one string.');
+        }
 
         this.files.forEach(function (file) {
-            var str = 'var ' + namespace + ' = ' + namespace + ' || {};\n';
+            var str = '';
+            if (options.initialize) {
+                var namespace = '';
+
+                str += 'var ';
+                options.namespace.forEach(function (identifier) {
+                    namespace = (namespace ? namespace + '.' : '') + identifier;
+                    str += namespace + ' = ' + namespace + ' || {};\n';
+                });
+
+            }
             file.src.forEach(function (filepath) {
                 var resolvedpath;
                 if (file.cwd) {
@@ -22,9 +40,9 @@ module.exports = function (grunt) {
                     resolvedpath = filepath;
                 }
                 if (!grunt.file.exists(resolvedpath)) {
-                    grunt.log.warn('Source file "' + resolvedpath + '" not found.');
+                    grunt.fail.warn('Source file "' + resolvedpath + '" not found.');
                 } else {
-                    str += namespace + '["' + filepath + '"] = ';
+                    str += options.namespace.join('.') + '["' + filepath + '"] = ';
                     str += "'" + str2js(grunt.file.read(resolvedpath)) + "';\n";
                 }
             });
