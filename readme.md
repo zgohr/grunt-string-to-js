@@ -38,7 +38,8 @@ NS["test/html.html"] = '<div class="foo">\n    <p class="bar">baz</p>\n</div>\n'
 Options can be set as documented [here](http://gruntjs.com/api/grunt.option).
 
 `initialize` - Default is true. Specifying false will not generate any initialization code and you will be expected to create the appropriate objects yourself.
-`namespace` - Defaults to the grunt target. (e.g. NS). Specifying an array of names will allow you to assign values to a custom namespace. (e.g. `['custom', 'namespace']` -> `custom.namespace[]`)
+
+`namespace` - Defaults to the grunt target. (e.g. 'NS'). Specifying an array of names will allow you to assign values to a custom namespace. (e.g. `['custom', 'namespace']` -> `custom.namespace[]`)
 
 ### Credits
 
