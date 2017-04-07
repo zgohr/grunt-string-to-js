@@ -2,7 +2,9 @@
 
 ### Build any text into JavaScript
 
-```npm install grunt-string-to-js --save``
+```
+npm install grunt-string-to-js --save
+```
 
 Grunt configuration
 
